@@ -20,7 +20,7 @@ module.exports = function(app) {
   });
 
   // If there are no matching routes. * This takes user back to home.
-  
+
   app.get("*", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });

@@ -1,4 +1,5 @@
 var express = require('express');
+var connection = require("./data/connection.js");
 // TODO: Import your route files from `route/`
 
 // Initialize the app and create a port
@@ -11,7 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // TODO: Mount your HTML and API routes
-// https://expressjs.com/en/api.html#app.use
+require("./routes/apiRoutes")(app, connection);
+require("./routes/htmlRoutes")(app);
 
 // Start the server on the port
 app.listen(PORT, function() {
