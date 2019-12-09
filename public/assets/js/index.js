@@ -8,15 +8,15 @@ $.get("/api/notes", function(data) {
 
       var note = $("<li class='list-group-item'>");
 
+
       var row = $("<div>");
-      var title = $("<span class='font-weight-bold saved-note-title'>" + result[i].title + "</span>");
-      var editNote = $("<a href= '#top'><i class='fas fa-pen float-right text-danger edit-note' data-id= " + result[i].id + ">")
-      var deleteNote = $("<i class='fas fa-trash-alt float-right text-danger delete-note' data-id= " + result[i].id + ">")
-      var bodyOfNote = $("<p class='mt-2'>" + result[i].text + "</p>");
-      var timeConverter = moment(result[i].created_at).format("YYYY-MM-DD HH:mm:ss");
-      var timeStamp = $("<p>" + timeConverter + "</p>");
-      div.append(title, deleteNote, editNote);
-      note.append(row, bodyOfNote, timeStamp);
+      var title = $("<span class='font-weight-bold saved-note-title'>" + data[i].title + "</span>");
+      var editNote = $("<a href= '#top'><i class='fas fa-pen float-right text-danger edit-note' data-id= " + data[i].id + ">")
+      var deleteNote = $("<button>").data("id", data[i].id).addClass("btn btn-danger delete-note").text("Delete");
+      var bodyOfNote = $("<p class='mt-2'>" + data[i].bodyOfNote + "</p>");
+      console.log(data[i]);
+      row.append(title, deleteNote, editNote);
+      note.append(row, bodyOfNote);
       $("#noteList").prepend(note);
 
     
@@ -30,7 +30,7 @@ $.get("/api/notes", function(data) {
 $("#saveNoteBtn").on("click", function(event) {
   event.preventDefault();
 
-  // Make a newChirp object
+
   var newNote = {
     title: $("#noteTitle").val().trim(),
     bodyOfNote: $("#noteBody").val().trim(),
@@ -46,19 +46,8 @@ $("#saveNoteBtn").on("click", function(event) {
  
   });
 
-$.post("/api/new", newNote)
-    // On success, run the following code
-    .then(function() {
+  
 
-      var row = $("<div>");
-      row.addClass("note");
-
-      row.append("<p>" + newNote.title + "</p>");
-      row.append("<p>" + newNote.bodyOfNote + "</p>");
-
-      $("#noteList").prepend(row);
-
-    });
 
 
 //You need ajax to delete 
